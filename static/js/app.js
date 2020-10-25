@@ -46,40 +46,25 @@
         height: 600,
         width: 600
       };
-      
       Plotly.newPlot('bubble', data2, layout);
+    })
 
-
-    // Use D3 to create an event handler
-    // Call selectSample() when a change takes place to the DOM
-      d3.selectAll("#selDataset").on("change", selectSample);
-        
-
-      // This function is called when a dropdown menu item is selected
-      function selectSample() {
-        var selection = data.metadata[0].filter(sampleId => sampleId.id )
-        // Use D3 to select the dropdown menu
-        var dropdownMenu = d3.select("#selDataset");
-        // Assign the value of the dropdown menu option to a variable
-        var dataset = dropdownMenu.property("value");
-        dropdownMenu.append('option').attr(dataset, selection)
-        
-          
-          d3.select('#sample-metadata').html("")
-            .append(data.metadata)
-      
-      
-      }
-  
-    });
   }
-  
   buildPlot();
-  
- 
-
-
-  
-  function meta(){
-    
-  }
+  // Use D3 to create an event handler
+    // Call selectSample() when a change takes place to the DOM
+    d3.selectAll("#selDataset").on("change", selectSample);
+    function selectSample() {
+      d3.json("samples.json").then(function(data) {
+        console.log(data);
+      var selection = data.metadata;
+      selection.forEach((sample) => {
+      var row = d3.select('#selDataset').append('option').text('something')
+      Object.entries(sample).forEach(([key, value]) => {
+        var cell = d3.select('#sample-metadata').append('option')
+        cell.text(value);
+      });
+      
+  });
+})
+} 
