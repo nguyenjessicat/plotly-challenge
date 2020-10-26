@@ -47,24 +47,22 @@
         width: 600
       };
       Plotly.newPlot('bubble', data2, layout);
-    })
 
+      var names = data.names;
+      var selectElm = d3.select("#selDataset");
+      names.forEach((name) => {
+        selectElm.append('option').text(name).property('value', name);
+      })
+    })
+    function optionChanged() {
+      var selector = d3.select('#selDataset')
+      var curvalue = selector.property("value");
+          if (curvalue === selectElm) {
+            
+          }
+        }
+      
   }
   buildPlot();
-  // Use D3 to create an event handler
-    // Call selectSample() when a change takes place to the DOM
-    d3.selectAll("#selDataset").on("change", selectSample);
-    function selectSample() {
-      d3.json("samples.json").then(function(data) {
-        console.log(data);
-      var selection = data.metadata;
-      selection.forEach((sample) => {
-      var row = d3.select('#selDataset').append('option').text('something')
-      Object.entries(sample).forEach(([key, value]) => {
-        var cell = d3.select('#sample-metadata').append('option')
-        cell.text(value);
-      });
-      
-  });
-})
-} 
+  
+    
