@@ -54,19 +54,20 @@
         selectElm.append('option').text(name).property('value', name);
       })
     })
-    function dataresult() {
-      d3.json("samples.json").then (function(data){
-        console.log(data);
-      var selector = d3.select('#selDataset');
-      var curvalue = selector.property("value");
-      var result = d3.select("#sample-metadata");
-      var meta = data.metadata.filter(d => d.id == curvalue);
-        Object.entries(meta).forEach(([key, value]) => {
-          result.append('h2').text(`${key},${value}`)
-        })
-        })}
-      dataresult();
+    
   }
   buildPlot();
-  
+  function optionChanged() {
+    d3.json("samples.json").then (function(data){
+      console.log(data);
+    var selector = d3.select('#selDataset');
+    var curvalue = selector.property("value");
+    var result = d3.select("#sample-metadata");
+    var meta = data.metadata.filter(d => d.id == curvalue);
+      meta.html("");
+      Object.entries(meta[0]).forEach(([key, value]) => {
+        result.append('p').text(`${key},${value}`)
+      })
+      })}
+  optionChanged();
     
