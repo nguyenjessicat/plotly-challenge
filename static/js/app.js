@@ -44,7 +44,7 @@
         title: 'OTU IDs',
         showlegend: false,
         height: 600,
-        width: 600
+        width: 1000
       };
       Plotly.newPlot('bubble', data2, layout);
 
@@ -54,14 +54,18 @@
         selectElm.append('option').text(name).property('value', name);
       })
     })
-    function optionChanged() {
-      var selector = d3.select('#selDataset')
+    function dataresult() {
+      d3.json("samples.json").then (function(data){
+        console.log(data);
+      var selector = d3.select('#selDataset');
       var curvalue = selector.property("value");
-          if (curvalue === selectElm) {
-            
-          }
-        }
-      
+      var result = d3.select("#sample-metadata");
+      var meta = data.metadata.filter(d => d.id == curvalue);
+        Object.entries(meta).forEach(([key, value]) => {
+          result.append('h2').text(`${key},${value}`)
+        })
+        })}
+      dataresult();
   }
   buildPlot();
   
