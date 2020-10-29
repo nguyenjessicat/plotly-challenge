@@ -58,11 +58,13 @@ function buildPlot() {
       names.forEach((name) => {
         selectElm.append('option').text(name).property('value', name);
       });
-
+      var firstSample = names[0];
+      buildPlot(firstSample);
+      optionChanged(firstSample);
       // var firstsample = names[0];
 
     })
-  } init();
+  } 
 
 
 
@@ -86,9 +88,7 @@ function buildPlot() {
 
 
 // Use the first sample from the list to build the initial plots
-var firstSample = names[0];
-buildPlot(firstSample);
-optionChanged(firstSample);
+
 
 
 
@@ -97,3 +97,4 @@ function Changed(newSample) {
 buildPlot(newSample);
 optionChanged(newSample);
 }
+init();
